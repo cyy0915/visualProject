@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src = 'https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js'></script>
+    <script src = 'https://cdn.bootcss.com/d3/5.15.1/d3.min.js'></script>
+
+    <script src="Dataprocess.js"></script>
+    <script src="globalInteractFunction.js"></script>
+    <script src="interactWidget.js"></script>
+    <script>
+        $(document).ready(function () {
+            var data = $.ajax({url:'owid-covid-data.csv', async:false});
+            data = data.responseText;
+            data = dataProcess(data);
+            createInteractWidget(data);
+
+        })
+    </script>
+</head>
+
+<body>
+<div id="basicInfo" style="width: 100%; text-align: center">
+</div>
+<div id="graph1" style="width: 40%; float: left"></div>
+<div id="countrySelect1" style="width: 19%; height: 200px; float: left; overflow: auto">
+</div>
+<div id="graph2" style="width: 40%; float: left"></div>
+<div style="clear: both"></div>
+<div id="categorySelect" style="width: 100%">
+</div>
+<div id="timeAxis" style="width: 100%">
+    <input type="range" min="0" step="1" style="width: 90%">
+    <span>test</span>
+</div>
+<div id="graph3" style="width: 44%; float: left"></div>
+<div id="countrySelect2" style="width: 10%; float: left">
+    <ul></ul>
+    <div id="totalCaseFilter">
+    <input type="range" min="1" max="7" step="1">
+    <span>确诊数>1000 </span>
+    </div>
+    <div id="deathCaseFilter">
+        <input type="range" min="1" max="6" step="1">
+        <span>死亡数>1000</span>
+    </div>
+</div>
+<div id="graph4" style="width: 44%; float: left"></div>
+</body>
+</html>
