@@ -22,7 +22,7 @@ data.continentCountry['NA']为北美所有国家的array
 
 data.category=['total_cases', 'new_cases', 'total_deaths', 'incidence_rate','total_cases_per_million','new_cases_per_million','total_deaths_per_million']为作图所用数据类型，为owid-covid-data.csv中的部分字段
 
-data.raw为经d3.csvParse(data)和部分string转nuber的原始数据
+data.raw为经d3.csvParse(data)和部分string转number的原始数据
 
 
 
