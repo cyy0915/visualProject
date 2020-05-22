@@ -4,7 +4,7 @@ data说明：
 
 在main.html中经过dataProcess(data)的data包含了大部分用于画图的数据，
 
-data.timeList是一个array, 按顺序排列了数据中的所有日期
+data.timeList是一个array, 按顺序排列了数据中的所有日期，格式为'2020-3-14'
 
 data.countryList是一个array, 按累计病例数的顺序排列了所有国家，ps：国家在程序中用三个字母的iso country code表示
 
