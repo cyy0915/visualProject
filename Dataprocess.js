@@ -22,7 +22,12 @@ function dataProcess(data) {
                 d[i] = Number(d[i]);
             }
         }
-        d.incidence_rate = d.total_deaths/d.total_cases;
+        if (d.total_cases>0 && d.total_cases>d.total_deaths) {
+            d['Case-Fatality_Ratio'] = d.total_deaths / d.total_cases;
+        }
+        else{
+            d['Case-Fatality_Ratio'] = 0;
+        }
         d.continent_code = countryContinent[d.iso_code];
         return d;
     });
@@ -62,7 +67,27 @@ function dataProcess(data) {
             continentCountry[continent].push(countryList[i]);
         }
     }
-    var a = 0;
-    var category = ['total_cases', 'new_cases', 'total_deaths', 'incidence_rate','total_cases_per_million','new_cases_per_million','total_deaths_per_million'];
-    return {timeData: timeData, countryData: countryData, countryList: countryList, timeList: timeList, continentList: continentList,countryName: countryName, continentName:continentName, continentCountry:continentCountry, category:category, raw:data};
+    var category = ['total_cases', 'new_cases', 'total_deaths', 'Case-Fatality_Ratio','total_cases_per_million','new_cases_per_million','total_deaths_per_million'];
+
+    //地图专用经纬数据
+    var countryCode = $.ajax({url:'countryCode.csv', async: false}).responseText;
+    countryCode = d3.csvParse(countryCode);
+    var tmp = {};
+    countryCode.map(function (d) {
+        tmp[d['两字母代码']]=d['三字母代码'];
+    });
+    countryCode =tmp;
+    var countryPosition = $.ajax({url: 'countryPosition.csv', async:false}).responseText;
+    countryPosition = d3.csvParse(countryPosition);
+    countryPosition = countryPosition.map(function (d) {
+        d['country']=countryCode[d['country']];
+        return d;
+    });
+    tmp = {};
+    countryPosition.map(function (d) {
+        tmp[d['country']] = d;
+    });
+    countryPosition = tmp;
+
+    return {timeData: timeData, countryData: countryData, countryList: countryList, timeList: timeList, continentList: continentList,countryName: countryName, continentName:continentName, continentCountry:continentCountry, category:category, countryPosition: countryPosition, raw:data};
 }
