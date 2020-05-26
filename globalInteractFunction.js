@@ -3,6 +3,7 @@ function countrySelect(d) {
     interactPara.recentSelect=d;
 
     mapGraph.countrySelect(interactPara.countrySelect);
+    updateBaseInfo(getSpecificData(d, interactPara.time));
 }
 function countryCancelSelect(d) {
     var index = interactPara.countrySelect.indexOf(d);

@@ -44,3 +44,9 @@ function createInteractWidget(data) {
         }
     })
 }
+
+function updateBaseInfo(data) {
+    var basicInfo = $('#basicInfo');
+    basicInfo.html(`<h4>${globalData.countryName[data.iso_code]}</h4>
+    <p>确诊：${data.total_cases}; 新增：${data.new_cases}; 死亡：${data.total_deaths}</p>`);
+}

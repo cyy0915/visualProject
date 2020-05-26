@@ -12,20 +12,22 @@
     <script src="globalInteractFunction.js"></script>
     <script src="interactWidget.js"></script>
     <script src="drawMap.js"></script>
+    <script src="toolFunction.js"></script>
     <script>
         $(document).ready(function () {
-            var data = $.ajax({url:'owid-covid-data.csv', async:false});
-            data = data.responseText;
-            data = dataProcess(data);
-            createInteractWidget(data);
+            globalData = $.ajax({url:'owid-covid-data.csv', async:false});
+            globalData = globalData.responseText;
+            globalData = dataProcess(globalData);
+            createInteractWidget(globalData);
 
-            mapGraph = drawMap(data, interactPara.category, interactPara.time);
+            mapGraph = drawMap(globalData, interactPara.category, interactPara.time);
         })
     </script>
 </head>
 
 <body>
 <div id="basicInfo" style="width: 100%; text-align: center">
+    <h4></h4>
 </div>
 <div id="graph1" style="width: 40%; float: left; padding-bottom: 30%"></div>
 <div id="countrySelect1" style="width: 19%; height: 0; padding-bottom: 30%; float: left; overflow: auto">
