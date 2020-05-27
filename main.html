@@ -13,6 +13,7 @@
     <script src="interactWidget.js"></script>
     <script src="drawMap.js"></script>
     <script src="toolFunction.js"></script>
+    <script src="NO3.js"></script>
     <script>
         $(document).ready(function () {
             globalData = $.ajax({url:'owid-covid-data.csv', async:false});
@@ -21,6 +22,7 @@
             createInteractWidget(globalData);
 
             mapGraph = drawMap(globalData, interactPara.category, interactPara.time);
+            changeRadial(globalData.timeData[interactPara.time], interactPara.category,["AS","AF","EU","SA","AN","OC"],[500,500]);
         })
     </script>
 </head>
@@ -40,7 +42,7 @@
     <input type="range" min="0" step="1" style="width: 90%">
     <span>test</span>
 </div>
-<div id="graph3" style="width: 44%; float: left"></div>
+<div id="graph3" style="width: 600px;height:600px; float: left"></div>
 <div id="countrySelect2" style="width: 10%; float: left">
     <ul></ul>
     <div id="totalCaseFilter">
