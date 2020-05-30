@@ -23,7 +23,7 @@
             createInteractWidget(globalData);
 
             mapGraph = drawMap(globalData, interactPara.category, interactPara.time);
-            changeRadial(globalData.timeData[interactPara.time], interactPara.category, ["AS", "AF", "EU", "SA", "AN", "OC"], [500, 500]);
+            changeRadial();
         })
     </script>
 </head>
@@ -52,7 +52,16 @@
     <input type="range" min="0" step="1" style="width: 90%">
     <span>test</span>
 </div>
-<div id="graph3" style="width: 600px;height:600px; float: left"></div>
+<div id="graph3" style="width: 600px;height:600px; float: left">
+    坐标轴选择：
+    <label><input type="radio" name="axis" id="log" onchange="changeRadial()" checked>对数坐标</label>
+    <label><input type="radio" name="axis" id="linear" onchange="changeRadial()">线性坐标</label><br>
+
+    排序方式选择：
+    <label><input type="radio" name="sort" id="num" onchange="changeRadial()" checked/>按数量</label>
+    <label><input type="radio" name="sort" id="area" onchange="changeRadial()">按分布</label>
+    <label><input type="radio" name="sort" id="first" onchange="changeRadial()">按首字母</label><br>
+</div>
 <div id="countrySelect2" style="width: 10%; float: left">
     <ul></ul>
     <div id="totalCaseFilter">
