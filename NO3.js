@@ -43,18 +43,23 @@ function changeRadial(){
 }
 
 function drawRadialStackedBarChart(dataSet,num,flag){
-    var width=parseInt(d3.select("#graph3").style("width")),
-    height=parseInt(d3.select("#graph3").style("height"));
+    var width=document.body.clientWidth*0.4,//parseInt(d3.select("#graph3").style("width")),
+    height=width;//parseInt(d3.select("#graph3").style("height"));
+  
     var svg = d3.select("#graph3")
         .append("svg")
         .attr("id","graph3")
         .attr("width", width)
         .attr("height", height)
+        .attr("viewBox", [0, 0, width, height])
+        .call(d3.zoom().on("zoom", function () {
+          svg.attr("transform", d3.event.transform)
+       }))
     .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
                 
     var innerRadius = 180,
-    outerRadius = Math.min(width, height) / 2-30;
+    outerRadius = 300;
 
 var x = d3.scaleBand()
     .range([0, 2 * Math.PI])
@@ -175,7 +180,7 @@ var z = d3.scaleOrdinal()
       .append("text")
         .text(function(d){return d.value;})
         .attr("transform",  "rotate(90)")
-        .style("font-size", "10px")
+        .style("font-size", "8px")
         .attr("alignment-baseline", "middle")
 
   
