@@ -9,28 +9,46 @@ function compare(v1,v2){
   return v1.value-v2.value;
 }
 
-function changeRadial(data, category,sel,up){
-    console.log(data);
-    console.log(category);
+function changeRadial(){
+    var data=globalData.timeData[interactPara.time],category=interactPara.category,
+    sel=["AS", "AF", "EU", "SA"],up=[500,500];
     
-    var dataSet=[],num=["NA","AS","AF","EU","SA","AN","OC"];//["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"];
+  var dataSet=[],num=["NA","AS","AF","EU","SA","AN","OC"];//["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"];
    
-    for (var i=0;i<data.length-1;++i){
-      if (sel.indexOf(data[i].continent_code)!=-1&&data[i].total_cases>up[0]&&data[i].total_deaths>up[1]){
-        var tmp={};
-        tmp.value=data[i][category];
-        tmp.area=data[i].location;
-        tmp.continent=data[i].continent_code;
-        dataSet.push(tmp);       
-      }
+  for (var i=0;i<data.length-1;++i){
+    if (sel.indexOf(data[i].continent_code)!=-1&&data[i].total_cases>up[0]&&data[i].total_deaths>up[1]){
+      var tmp={};
+      tmp.value=data[i][category];
+      tmp.area=data[i].location;
+      tmp.continent=data[i].continent_code;
+      dataSet.push(tmp);       
     }
+  }
     
-    dataSet.sort(compare);
-    console.log(dataSet)
-    drawRadialStackedBarChart(dataSet,num);
+  if (document.getElementById("num").checked) dataSet.sort(compare);
+  else if (document.getElementById("area").checked){
+    var dataTotal=[],dataTmp=[];
+    for (var i=0;i<sel.length;++i){
+      dataTmp=[];
+      for (var j=0;j<dataSet.length;++j){
+        if (dataSet[j].continent==sel[i]) dataTmp.push(dataSet[j]);
+      }
+      dataTmp.sort(compare);
+      dataTotal=dataTotal.concat(dataTmp);
+    }
+    dataSet=dataTotal;
+  }
+
+  var flag;
+  if (document.getElementById("log").checked) flag=1;
+  else flag=0;
+
+  var s=d3.select("#NO3");
+  s.remove();
+  drawRadialStackedBarChart(dataSet,num,flag);
 }
 
-function drawRadialStackedBarChart(dataSet,num){
+function drawRadialStackedBarChart(dataSet,num,flag){
     var width=parseInt(d3.select("#graph3").style("width")),
     height=parseInt(d3.select("#graph3").style("height"));
     var svg = d3.select("#graph3")
@@ -49,9 +67,17 @@ var x = d3.scaleBand()
     .align(0)
     .domain(dataSet.map(function(d,i){return d.area;}))
 
-var y = d3.scaleLinear()
-    .range([innerRadius, outerRadius])
-    .domain([0,d3.max(dataSet,function(d){return d.value;})])
+var y;
+if (flag){
+      y = d3.scaleLog()
+      .range([innerRadius, outerRadius])
+      .domain([1,d3.max(dataSet,function(d){return d.value;})])
+    }
+    else{
+      y = d3.scaleLinear()
+      .range([innerRadius, outerRadius])
+      .domain([0,d3.max(dataSet,function(d){return d.value;})])
+    }
 
 var z = d3.scaleOrdinal()
     .range(['#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80','#8d98b3', '#e5cf0d'])
