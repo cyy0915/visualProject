@@ -21,7 +21,15 @@ function categorySelect(d) {
 }
 
 function continentSelect(d) {
-
+    var index = interactPara.continentSelect.indexOf(d);
+    if (index!==-1) {
+        interactPara.continentSelect.splice(index, 1);
+    }
+    else{
+        interactPara.continentSelect.push(d);
+    }
+    
+    changeRadial();
 }
 
 function filtByTotalCase(n) {
