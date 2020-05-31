@@ -28,7 +28,7 @@ data.raw为经d3.csvParse(data)和部分string转number的原始数据
 
 ## 交互说明：
 
-每个交互组件对应一个函数，写在globalInteractFunction.js中。为全局交互设置了一个全局变量interactPara, 包含countrySelect(array类型), time, recentSelect, continentSelect(array类型),category, countryFilter（array类型，长度为2，0位为tota_cases,1位为tatal_deaths），interactPara初始化写在interactWidget.js中。
+每个交互组件对应一个函数，写在globalInteractFunction.js中。为全局交互设置了一个全局变量interactPara, 包含countrySelect(array类型), time, recentSelect, continentSelect(array类型),category, countryFilter（array类型,记录确诊人数和死亡人数界定值,长度为2,0位为tota_cases,1位为tatal_deaths），interactPara初始化写在interactWidget.js中。
 
 ## 进度说明：
 地图已初步完成，包括和时间轴和类别选择和国家选择的交互。
