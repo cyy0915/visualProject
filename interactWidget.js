@@ -23,8 +23,11 @@ function createInteractWidget(data) {
 
     d3.select('#countrySelect2').select('ul').selectAll('li')
         .data(data.continentList).join('li').text(d=>data.continentName[d]).on('click', continentSelect);
+    interactPara.continentSelect=["AS","AF","EU"];
+    
 
-    var totalCaseFilterNum = 4; var deathCaseFilterNum = 3;
+    var totalCaseFilterNum = 3; var deathCaseFilterNum = 3;
+    interactPara.countryFilter=[1000,1000];
     $('#totalCaseFilter input').mousemove(function () {
         var number = $(this).val();
         if (totalCaseFilterNum!==number) {
