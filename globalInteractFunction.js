@@ -33,14 +33,18 @@ function continentSelect(d) {
 }
 
 function filtByTotalCase(n) {
+    interactPara.countryFilter[0] = n;
+    changeRadial();
 
 }
 
 function filtByDeathCase(n) {
-
+    interactPara.countryFilter[1] = n;
+    changeRadial();
 }
 
 function timeSelect(t){
     interactPara.time = t;
     mapGraph.update(interactPara.category, interactPara.time);
+    changeRadial();
 }

@@ -1,9 +1,18 @@
 function createInteractWidget(data) {
-    interactPara = {time:data.timeList[data.timeList.length-1], category: 'total_cases', countrySelect: [], recentSelect:'', countryFilter:{}};
+    function click(d){
+        if (interactPara.countrySelect.indexOf(d)===-1){
+            countrySelect(d);
+        }
+        else{
+            countryCancelSelect(d);
+        }
+    }
+
+    interactPara = {time:data.timeList[data.timeList.length-1], category: 'total_cases', countrySelect: [], recentSelect:'', continentSelect: ["AS","AF","EU"], countryFilter: [1000,1000]};
 
     d3.select('#countrySelect1').append('ul').selectAll('li')
         .data(data.continentList).join('li').text(d=>data.continentName[d]).append('ul')
-        .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', countrySelect);
+        .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click);
 
     d3.select('#categorySelect').selectAll('button')
         .data(data.category).join('button').text(d=>d).on('click', categorySelect);
@@ -53,3 +62,4 @@ function updateBaseInfo(data) {
     basicInfo.html(`<h4>${globalData.countryName[data.iso_code]}</h4>
     <p>确诊：${data.total_cases}; 新增：${data.new_cases}; 死亡：${data.total_deaths}</p>`);
 }
+

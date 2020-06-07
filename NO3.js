@@ -43,6 +43,9 @@ function changeRadial(){
 }
 
 function drawRadialStackedBarChart(dataSet,num,flag){
+    //先清除原图 by陈屹扬
+    d3.select('#graph3').select('svg').remove();
+
     var width=document.body.clientWidth*0.4,//parseInt(d3.select("#graph3").style("width")),
     height=width;//parseInt(d3.select("#graph3").style("height"));
   
