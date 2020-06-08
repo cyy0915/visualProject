@@ -5,7 +5,7 @@ function compare(v1,v2){
 
 function changeRadial(){
     var data=globalData.timeData[interactPara.time],category=interactPara.category,
-    sel=["AS", "AF", "EU", "SA"],up=[500,500];
+    sel=interactPara.continentSelect,up=[500,500];
     
   var dataSet=[],num=["NA","AS","AF","EU","SA","AN","OC"];//["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"];
    
