@@ -18,6 +18,7 @@ function countryCancelSelect(d) {
 function categorySelect(d) {
     interactPara.category = d;
     mapGraph.update(interactPara.category, interactPara.time);
+    changeRadial();
 }
 
 function continentSelect(d) {
