@@ -36,9 +36,7 @@ function changeRadial(){
   var flag;
   if (document.getElementById("log").checked) flag=1;
   else flag=0;
-
-  var s=d3.select("#NO3");
-  s.remove();
+  
   drawRadialStackedBarChart(dataSet,num,flag);
 }
 
