@@ -63,3 +63,11 @@ function updateBaseInfo(data) {
     <p>确诊：${data.total_cases}; 新增：${data.new_cases}; 死亡：${data.total_deaths}</p>`);
 }
 
+function updateTLCountry(country) {
+    var tmp = country[country.length-1];
+    document.getElementById("demo").innerHTML = globalData.countryName[tmp];
+    document.getElementById("timeLine").innerHTML = "";
+    document.getElementById("selectYAxis").length = 0;
+    document.getElementById("monitorNum").length = 0;
+    drawTimeLine(globalData, tmp);
+}
