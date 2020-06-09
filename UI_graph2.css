@@ -59,6 +59,17 @@
 #timeLine {
 	position: absolute;
 	left: 60%;
+	top: 10%;
+	width: 40%;
+	height: 30%;
+	font-family: Source Han Sans CN;
+	font-size: 16px;
+	color: black;
+}
+
+#demo {
+	position: absolute;
+	left: 60%;
 	top: 5%;
 	width: 40%;
 	height: 30%;
