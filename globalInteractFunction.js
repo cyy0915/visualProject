@@ -4,6 +4,7 @@ function countrySelect(d) {
 
     mapGraph.countrySelect(interactPara.countrySelect);
     updateBaseInfo(getSpecificData(d, interactPara.time));
+    updateTLCountry(interactPara.countrySelect);
 }
 function countryCancelSelect(d) {
     var index = interactPara.countrySelect.indexOf(d);
