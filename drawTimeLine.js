@@ -1,4 +1,4 @@
-function drawTimeLine(globalData, country) {
+function drawTimeLine(Data, country) {
 
     var margin = { top: 10, right: 30, bottom: 30, left: 60 },
         width = 700 - margin.left - margin.right,
@@ -41,9 +41,11 @@ function drawTimeLine(globalData, country) {
      * globalData.countryData[][] →下有数组 iso_code location date total_cases new_cases ...
      * 数据 = globalData.countryData[国家名字缩写][第几行（0开始计数）][条目名];
      * */
-
-    var countryChosen = country;
-    var countryChosenData = globalData.countryData[countryChosen];
+    var countryChosenData ={};
+    for (var i in interactPara.countrySelect) {
+        var tmp = interactPara.countrySelect[i];
+        countryChosenData[tmp] = globalData.countryData[tmp];
+    }
 
     /* -- 数据调用方式记录 --
      * countryChosenData →下有数组 0 1 2 3 4 5 6 7 8 ...
@@ -52,7 +54,14 @@ function drawTimeLine(globalData, country) {
      * */
 
     //初始化画图需要的数据，储存进data
-    var data = [];
+    for (var i in countryChosenData){
+        for (var j in countryChosenData[i]){
+            countryChosenData[i][j]['time'] = d3.timeParse("%Y-%m-%d")(countryChosenData[i][j]['date'])
+            countryChosenData[i][j]['value'] = countryChosenData[i][j][interactPara.category]
+        }
+    }
+
+    /*var data = []
     for (var i in countryChosenData) {
         var slide = {
             date: countryChosenData[i]['date'],
@@ -63,23 +72,24 @@ function drawTimeLine(globalData, country) {
             total_deaths_per_million: countryChosenData[i]['total_deaths_per_million']
         };
         data.push(slide);
-    }
+    }*/
     //document.getElementById("demo").innerHTML = tmp;
 
-    var dataFilter = data.map(
+    /*var dataFilter = data.map(
         function (d) {
             return {
                 date: d.date,
                 time: d.time,
-                value: d["total_cases"]
+                value: d[interactPara.category]
             }
-        })
-    var selectedGroup = "total_cases";
+        })*/
+    var dataFilter = countryChosenData;
+    var selectedGroup = interactPara.category;
 
 
     // 绘制y轴
     var y = d3.scaleLinear()
-        .domain([0, d3.max(dataFilter, function (d) { return +d.value; })])
+        .domain([0, d3.max(d3.entries(dataFilter), d=>d3.max(d.value, d1=>d1.value))])
         .range([height, 0]);
     var yAxis = d3.axisLeft().scale(y);
     svg.append("g")
@@ -90,7 +100,7 @@ function drawTimeLine(globalData, country) {
 
     // 绘制x轴
     var x = d3.scaleTime()
-        .domain(d3.extent(dataFilter, function (d) { return d.time; }))
+        .domain(d3.extent(dataFilter[interactPara.countrySelect[0]], function (d) { return d.time; }))
         .range([0, width]);
     var xAxis = d3.axisBottom().scale(x);
     svg.append("g")
@@ -121,17 +131,16 @@ function drawTimeLine(globalData, country) {
         .append('g')
         .attr("clip-path", "url(#clip)")
 
-    line
-        .append("path")
-        .datum(dataFilter)
+    var color = d3.scaleOrdinal().domain(interactPara.countrySelect).range(d3.schemeCategory10);
+    line.selectAll('path').data(interactPara.countrySelect).join('path').style("fill", 'none')
+        .attr("stroke", d=>color(d))
+        .datum(d=>dataFilter[d])
         .attr("class", "line")
         .attr("d", d3.line()
             .x(function (d) { return x(+d.time) })
             .y(function (d) { return y(+d.value) })
         )
-        .attr("stroke", "black")
         .style("stroke-width", 3)
-        .style("fill", "none")
 
     line
         .append("g")
@@ -166,7 +175,7 @@ function drawTimeLine(globalData, country) {
                 .attr('width', width)
                 .attr('height', height)
                 .on('mouseover', mouseover)
-                .on('mousemove', mousemove)
+                //.on('mousemove', mousemove)
                 .on('mouseout', mouseout);
             function mouseover() {
                 focus.style("opacity", 1)
@@ -273,7 +282,7 @@ function drawTimeLine(globalData, country) {
         // If no selection, back to initial coordinate. Otherwise, update X axis domain
         if (!extent) {
             if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-            update(selectedGroup)
+            //update(selectedGroup)
         } else {
             x.domain([x.invert(extent[0]), x.invert(extent[1])])
             line.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
@@ -283,12 +292,12 @@ function drawTimeLine(globalData, country) {
         //xAxis
         svg.selectAll(".myXaxis")
             .transition()
-            .duration(3000)
+            .duration(1000)
             .call(xAxis)
         line
             .select('.line')
             .transition()
-            .duration(3000)
+            .duration(1000)
             .attr("d", d3.line()
                 .x(function (d) { return x(d.time) })
                 .y(function (d) { return y(d.value) })
@@ -297,7 +306,7 @@ function drawTimeLine(globalData, country) {
 
     d3.select("#selectYAxis").on("change", function (d) {
         var selectedOption = d3.select(this).property("value")
-        update(selectedOption)
+        //update(selectedOption)
     })
 
     d3.select("#monitorNum").on("change", function (d) {
@@ -314,3 +323,13 @@ function drawTimeLine(globalData, country) {
     
 
 }
+
+function updateTLCountry(country) {
+    var tmp = country[country.length-1];
+    document.getElementById("demo").innerHTML = globalData.countryName[tmp];
+    document.getElementById("timeLine").innerHTML = "";
+    document.getElementById("selectYAxis").length = 0;
+    document.getElementById("monitorNum").length = 0;
+    drawTimeLine(globalData, tmp);
+}
+

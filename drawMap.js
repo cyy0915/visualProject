@@ -8,6 +8,7 @@ function drawMap(data, category, time) {
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
             maxZoom: 6,
+            noWrap: true
         }).addTo(map);
 
 // Add a svg layer to the map
