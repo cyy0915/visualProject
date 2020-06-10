@@ -26,6 +26,7 @@
             mapGraph = drawMap(globalData, interactPara.category, interactPara.time);
             countrySelect('USA');
             changeRadial();
+            drawParallel();
         })
     </script>
 </head>
@@ -78,7 +79,14 @@
         <input type="range" min="1" max="6" step="1">
         <span>死亡数>1000</span>
     </div>
-</div>
-<div id="graph4" style="width: 44%; float: left"></div>
+    <div id="graph4" style="width: 40%; float: left">
+        坐标轴选择：
+        <label><input type="checkbox" name="total" id="total" onchange="drawParallel()" checked>确诊数</label>
+        <label><input type="checkbox" name="new" id="new" onchange="drawParallel()" >新增数</label>
+        <label><input type="checkbox" name="death" id="death" onchange="drawParallel()" checked>死亡数</label>
+        <label><input type="checkbox" name="total_million" id="total_million" onchange="drawParallel()">确诊数（每百万）</label>
+        <label><input type="checkbox" name="new_million" id="new_million" onchange="drawParallel()">新增数（每百万）</label>
+        <label><input type="checkbox" name="death_million" id="death_million" onchange="drawParallel()">死亡数（每百万）</label>
+    </div>
 </body>
 </html>
