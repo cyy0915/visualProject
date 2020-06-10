@@ -35,31 +35,17 @@
 <div id="basicInfo" style="width: 100%; text-align: center">
     <h4></h4>
 </div>
+<div id="categorySelect" style="width: 100%; text-align: center"></div>
 <div id="graph1" style="width: 44%; float: left; padding-bottom: 30%"></div>
-<div id="countrySelect1" style="width: 10%; height: 0; padding-bottom: 30%; float: left; overflow: auto">
-</div>
+<div id="countrySelect1" style="width: 10%; height: 0; padding-bottom: 30%; float: left; overflow: auto"></div>
 <div id="graph2" style="width: 44%; float: left"></div>
-    <!-- 右上区域 时序折线图 -->
-    <div class="graph2BG">
-        <h1>
-            >>&nbsp;&nbsp;请点选下拉菜单，选择纵轴内容。&nbsp;&nbsp;
-            <select id="selectYAxis"></select>&nbsp;&nbsp;
-            <select id="monitorNum"></select>
-        </h1>
-    </div>
-    <div id="timeLine"></div>
-    <div id="demo"></div>
-    <!-- 右上区域 时序折线图 -->
-
     
 <div style="clear: both"></div>
-<div id="categorySelect" style="width: 100%">
-</div>
 <div id="timeAxis" style="width: 100%">
     <input type="range" min="0" step="1" style="width: 90%">
     <span>test</span>
 </div>
-<div id="graph3" style="width: 40%; float: left">
+<div id="graph3" style="width: 44%; float: left">
     坐标轴选择：
     <label><input type="radio" name="axis" id="log" onchange="changeRadial()" checked>对数坐标</label>
     <label><input type="radio" name="axis" id="linear" onchange="changeRadial()">线性坐标</label><br>
@@ -79,7 +65,8 @@
         <input type="range" min="1" max="6" step="1">
         <span>死亡数>1000</span>
     </div>
-    <div id="graph4" style="width: 40%; float: left">
+</div>
+    <div id="graph4" style="width: 44%; float: left">
         坐标轴选择：
         <label><input type="checkbox" name="total" id="total" onchange="drawParallel()" checked>确诊数</label>
         <label><input type="checkbox" name="new" id="new" onchange="drawParallel()" >新增数</label>

@@ -13,7 +13,7 @@ function changeRadial(){
     if (sel.indexOf(data[i].continent_code)!=-1&&data[i].total_cases>up[0]&&data[i].total_deaths>up[1]){
       var tmp={};
       tmp.value=data[i][category];
-      tmp.area=data[i].location;
+      tmp.area=data[i]['iso_code'];
       tmp.continent=data[i].continent_code;
       dataSet.push(tmp);       
     }
@@ -124,7 +124,7 @@ var z = d3.scaleOrdinal()
       .attr("x", 24)
       .attr("y", 9)
       .attr("dy", "0.35em")
-      .text(function(d) { return d; });
+      .text(function(d) { return globalData.continentName[d]; });
 
   svg.append("g")
     .attr("id","g1")
@@ -163,9 +163,9 @@ var z = d3.scaleOrdinal()
 
 
     label.append("text")
-      .attr("transform", "rotate(180)translate(25,0)")
+        .attr("transform", "rotate(180)translate(25,0)")
       .text(function (d) {
-          return d.area;
+          return globalData.countryName[d.area];
         })
       .attr("fill", "black")
       .style("font-size", "12px");
@@ -181,7 +181,7 @@ var z = d3.scaleOrdinal()
       .append("text")
         .text(function(d){return d.value;})
         .attr("transform",  "rotate(90)")
-        .style("font-size", "8px")
+        .style("font-size", "12px")
         .attr("alignment-baseline", "middle")
 
   

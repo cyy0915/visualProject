@@ -15,7 +15,7 @@ function createInteractWidget(data) {
         .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click);
 
     d3.select('#categorySelect').selectAll('button')
-        .data(data.category).join('button').text(d=>d).on('click', categorySelect);
+        .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect);
 
     var currentTime;
     $('#timeAxis input').attr('max', data.timeList.length-1)

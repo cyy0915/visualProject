@@ -17,7 +17,7 @@ def returnFile(path):
         for i in range(1,len(csvFile)):
             total = float(csvFile[i][3])
             death = float(csvFile[i][5])
-            if total>0 and total>death:
+            if total>100 and total>death:
                 csvFile[i].append(str(death/total))
             else:
                 csvFile[i].append('0')

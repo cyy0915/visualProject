@@ -4,7 +4,7 @@ function countrySelect(d) {
 
     mapGraph.countrySelect(interactPara.countrySelect);
     updateBaseInfo(getSpecificData(d, interactPara.time));
-    //updateTLCountry(interactPara.countrySelect);
+    updateTLCountry(interactPara.countrySelect);
     console.log(interactPara.countrySelect)
     parallelCountrySelect(interactPara.countrySelect)
 }
@@ -17,13 +17,15 @@ function countryCancelSelect(d) {
     console.log(d)
     parallelCountryCancelSelect(d);
     mapGraph.countryCancelSelect(d);
+    updateTLCountry(interactPara.countrySelect);
 }
 
 function categorySelect(d) {
     interactPara.category = d;
     mapGraph.update(interactPara.category, interactPara.time);
     drawParallel();
-    changeRadial();    
+    changeRadial();
+    updateTLCountry(interactPara.countrySelect);
 }
 
 function continentSelect(d) {

@@ -1,13 +1,12 @@
 function drawTimeLine(Data, country) {
 
-    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+    var margin = { top: 10, right: 30, bottom: 40, left: 60 },
         width = 700 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var svg = d3.select("#timeLine")
+    var svg = d3.select("#graph2")
         .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr('viewBox', `0,0,${width + margin.left + margin.right}, ${height + margin.top + margin.bottom}`)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
@@ -16,7 +15,7 @@ function drawTimeLine(Data, country) {
     var allGroup1 = ["缩放模式", "显示数据模式"];
 
 
-    d3.select("#selectYAxis")
+    /*d3.select("#selectYAxis")
         .selectAll('myOptions')
         .data(allGroup)
         .enter()
@@ -30,7 +29,7 @@ function drawTimeLine(Data, country) {
         .enter()
         .append('option')
         .text(function (d) { return d; })
-        .attr("value", function (d) { return d; })
+        .attr("value", function (d) { return d; })*/
 
 
     //初始化的数据读入，默认显示USA的total_cases（确诊人数）
@@ -107,7 +106,10 @@ function drawTimeLine(Data, country) {
         .attr("transform", "translate(0," + height + ")")
         .attr("class", "myXaxis");
     svg.selectAll(".myXaxis").transition()
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll("text")
+        .attr("transform", "translate(-10,0)rotate(-45)")
+        .style("text-anchor", "end");
 
     var choose = null;
 
@@ -146,6 +148,15 @@ function drawTimeLine(Data, country) {
         .append("g")
         .attr("class", "brush")
         .call(brush);
+
+    var legend = svg.append('g')
+    legend.selectAll('rect').data(interactPara.countrySelect).join('rect')
+        .attr('x', (d,i)=>15).attr('y', (d,i)=>10+20*i)
+        .attr('width', '15').attr('height','15')
+        .attr('fill', d=>color(d))
+    legend.selectAll('text').data(interactPara.countrySelect).join('text')
+        .attr('x', 35).attr('y', (d,i)=>22+20*i).attr('font-size', 14)
+        .text(d=>globalData.countryName[d])
 
     var idleTimeout
     function idled() { idleTimeout = null; }
@@ -239,37 +250,32 @@ function drawTimeLine(Data, country) {
             selectedGroup = "total_cases";
         }
 
-        dataFilter = data.map(
-            function (d) {
-                return {
-                    date: d.date,
-                    time: d.time,
-                    value: d[selectedGroup]
-                }
-            })
-
-        x.domain(d3.extent(dataFilter, function (d) { return d.time; }))
+        x.domain(d3.extent(dataFilter[interactPara.countrySelect[0]], function (d) { return d.time; }))
         svg.selectAll(".myXaxis")
             .transition()
-            .duration(3000)
-            .call(xAxis);
+            .duration(1000)
+            .call(xAxis)
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
 
-        y.domain([0, d3.max(dataFilter, function (d) { return +d.value; })]);
+        y.domain([0, d3.max(d3.entries(dataFilter), d=>d3.max(d.value, d1=>d1.value))]);
         svg.selectAll(".myYaxis")
             .transition()
-            .duration(3000)
+            .duration(1000)
             .call(yAxis);
 
-        line
-            .datum(dataFilter)
-            .select('.line')
-            .transition()
-            .duration(3000)
+        line.selectAll('path').data(interactPara.countrySelect)
+            .join('path')
+            .style("fill", 'none')
+            .attr("stroke", d=>color(d))
+            .datum(d=>dataFilter[d]).transition().duration(1000)
+            .attr("class", "line")
             .attr("d", d3.line()
                 .x(function (d) { return x(+d.time) })
                 .y(function (d) { return y(+d.value) })
             )
-            .attr("stroke", "black")
+            .style("stroke-width", 3)
 
     }
 
@@ -282,7 +288,7 @@ function drawTimeLine(Data, country) {
         // If no selection, back to initial coordinate. Otherwise, update X axis domain
         if (!extent) {
             if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-            //update(selectedGroup)
+            update(selectedGroup)
         } else {
             x.domain([x.invert(extent[0]), x.invert(extent[1])])
             line.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
@@ -294,6 +300,9 @@ function drawTimeLine(Data, country) {
             .transition()
             .duration(1000)
             .call(xAxis)
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
         line
             .select('.line')
             .transition()
@@ -326,10 +335,10 @@ function drawTimeLine(Data, country) {
 
 function updateTLCountry(country) {
     var tmp = country[country.length-1];
-    document.getElementById("demo").innerHTML = globalData.countryName[tmp];
-    document.getElementById("timeLine").innerHTML = "";
-    document.getElementById("selectYAxis").length = 0;
-    document.getElementById("monitorNum").length = 0;
+    //document.getElementById("demo").innerHTML = globalData.countryName[tmp];
+    //document.getElementById("timeLine").innerHTML = "";
+    //document.getElementById("selectYAxis").length = 0;
+    //document.getElementById("monitorNum").length = 0;
     drawTimeLine(globalData, tmp);
 }
 
