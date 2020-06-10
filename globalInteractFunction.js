@@ -4,22 +4,26 @@ function countrySelect(d) {
 
     mapGraph.countrySelect(interactPara.countrySelect);
     updateBaseInfo(getSpecificData(d, interactPara.time));
-    updateTLCountry(interactPara.countrySelect);
+    //updateTLCountry(interactPara.countrySelect);
+    console.log(interactPara.countrySelect)
+    parallelCountrySelect(interactPara.countrySelect)
 }
 function countryCancelSelect(d) {
     var index = interactPara.countrySelect.indexOf(d);
     if (index!==-1) {
         interactPara.countrySelect.splice(index, 1);
     }
-    interactPara.recentSelect='';
-
+    interactPara.recentSelect = '';
+    console.log(d)
+    parallelCountryCancelSelect(d);
     mapGraph.countryCancelSelect(d);
 }
 
 function categorySelect(d) {
     interactPara.category = d;
     mapGraph.update(interactPara.category, interactPara.time);
-    changeRadial();
+    drawParallel();
+    changeRadial();    
 }
 
 function continentSelect(d) {
@@ -30,23 +34,25 @@ function continentSelect(d) {
     else{
         interactPara.continentSelect.push(d);
     }
-    
+    drawParallel();
     changeRadial();
 }
 
 function filtByTotalCase(n) {
     interactPara.countryFilter[0] = n;
+    drawParallel();
     changeRadial();
-
 }
 
 function filtByDeathCase(n) {
     interactPara.countryFilter[1] = n;
+    drawParallel();
     changeRadial();
 }
 
 function timeSelect(t){
     interactPara.time = t;
     mapGraph.update(interactPara.category, interactPara.time);
+    drawParallel();
     changeRadial();
 }
