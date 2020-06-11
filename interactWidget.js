@@ -12,10 +12,18 @@ function createInteractWidget(data) {
 
     d3.select('#countrySelect1').append('ul').selectAll('li')
         .data(data.continentList).join('li').text(d=>data.continentName[d]).append('ul')
-        .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click);
+        .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click)
+        .style('cursor', 'pointer');
 
     d3.select('#categorySelect').selectAll('button')
-        .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect);
+        .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect)
+        .style('background', function (d) {
+            if (d === interactPara.category) {
+                return '#5AB1EF';
+            } else {
+                return 'white';
+            }
+        });
 
     var currentTime;
     $('#timeAxis input').attr('max', data.timeList.length-1)
@@ -31,7 +39,8 @@ function createInteractWidget(data) {
 
 
     d3.select('#countrySelect2').select('ul').selectAll('li')
-        .data(data.continentList).join('li').text(d=>data.continentName[d]).on('click', continentSelect);
+        .data(data.continentList).join('li').text(d=>data.continentName[d]).on('click', continentSelect)
+        .style('cursor', 'pointer');
     interactPara.continentSelect=["AS","AF","EU"];
     
 

@@ -335,6 +335,7 @@ function drawTimeLine(Data, country) {
 
 function updateTLCountry(country) {
     var tmp = country[country.length-1];
+    d3.select('#graph2').select('svg').remove();
     //document.getElementById("demo").innerHTML = globalData.countryName[tmp];
     //document.getElementById("timeLine").innerHTML = "";
     //document.getElementById("selectYAxis").length = 0;

@@ -1,5 +1,6 @@
 import flask
 from flask import Flask
+import urllib.request as request
 
 app = Flask(__name__)
 dirpath = app.root_path
@@ -8,6 +9,8 @@ def returnFile(path):
     if path!='owid-covid-data.csv':
         return flask.send_from_directory(dirpath, path)
     else:
+        url = 'https://covid.ourworldindata.org/data/owid-covid-data.csv'
+        request.urlretrieve(url, 'owid-covid-data.csv')
         csvFile = open('owid-covid-data.csv', 'r')
         csvFile = csvFile.read()
         csvFile = csvFile.split('\n')

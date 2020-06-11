@@ -25,8 +25,7 @@
 
             mapGraph = drawMap(globalData, interactPara.category, interactPara.time);
             countrySelect('USA');
-            changeRadial();
-            drawParallel();
+            continentSelect('NA');
         })
     </script>
 </head>
@@ -35,12 +34,12 @@
 <div id="basicInfo" style="width: 100%; text-align: center">
     <h4></h4>
 </div>
-<div id="categorySelect" style="width: 100%; text-align: center"></div>
 <div id="graph1" style="width: 44%; float: left; padding-bottom: 30%"></div>
-<div id="countrySelect1" style="width: 10%; height: 0; padding-bottom: 30%; float: left; overflow: auto"></div>
+<div id="countrySelect1" style="width: 10%; height: 0; padding-bottom: 30%; float: left; overflow: auto;"></div>
 <div id="graph2" style="width: 44%; float: left"></div>
     
 <div style="clear: both"></div>
+<div id="categorySelect" style="width: 100%; text-align: center"></div>
 <div id="timeAxis" style="width: 100%">
     <input type="range" min="0" step="1" style="width: 90%">
     <span>test</span>
