@@ -13,7 +13,7 @@ function changeRadial(){
     if (sel.indexOf(data[i].continent_code)!=-1&&data[i].total_cases>up[0]&&data[i].total_deaths>up[1]){
       var tmp={};
       tmp.value=data[i][category];
-      tmp.area=data[i]['iso_code'];
+      tmp.area=globalData.countryName[data[i].iso_code];
       tmp.continent=data[i].continent_code;
       dataSet.push(tmp);       
     }
