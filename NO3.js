@@ -179,7 +179,15 @@ var z = d3.scaleOrdinal()
         .attr("text-anchor", "middle")//function(d,i) { return (x(i) + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
         .attr("transform", function(d) { return "rotate(" + (x(d.area)* 180 / Math.PI - 90) + ")"+"translate(" + (y(d.value)+5) + ",0)"; })
       .append("text")
-        .text(function(d){return d.value;})
+        .text(function(d){
+            var tmp = String(d.value);
+            if (tmp.indexOf('.')!==-1 && tmp.length-tmp.indexOf('.')>=5){
+                return d.value.toFixed(4);
+            }
+            else{
+                return d.value;
+            }
+        })
         .attr("transform",  "rotate(90)")
         .style("font-size", "12px")
         .attr("alignment-baseline", "middle")

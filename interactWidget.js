@@ -36,6 +36,7 @@ function createInteractWidget(data) {
         }
     });
     $('#timeAxis input').val(data.timeList.indexOf(interactPara.time));
+    $('#timeAxis span').text(interactPara.time);
 
 
     d3.select('#countrySelect2').select('ul').selectAll('li')

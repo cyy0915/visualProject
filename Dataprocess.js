@@ -25,6 +25,7 @@ function dataProcess(data) {
         //总病例数大于100时才开始计算病死率
         if (d.total_cases>100 && d.total_cases>d.total_deaths) {
             d['Case-Fatality_Ratio'] = d.total_deaths / d.total_cases;
+            d['Case-Fatality_Ratio'] = d['Case-Fatality_Ratio'];
         }
         else{
             d['Case-Fatality_Ratio'] = 0;

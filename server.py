@@ -16,6 +16,11 @@ def returnFile(path):
         csvFile = csvFile.split('\n')
         for i in range(len(csvFile)):
             csvFile[i] = csvFile[i].split(',')
+            if len(csvFile[i])>=2:
+                del csvFile[i][1]
+        for i in range(len(csvFile)):
+            if len(csvFile[i])<2:
+                del csvFile[i]
         csvFile[0].append('Case-Fatality_Ratio')
         for i in range(1,len(csvFile)):
             total = float(csvFile[i][3])
