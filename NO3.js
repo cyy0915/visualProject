@@ -7,7 +7,7 @@ function changeRadial(){
     var data=globalData.timeData[interactPara.time],category=interactPara.category,
     sel=interactPara.continentSelect,up=interactPara.countryFilter;
     
-  var dataSet=[],num=["NA","AS","AF","EU","SA","AN","OC"];//["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"];
+  var dataSet=[],num=["NA","AS","EU","AF","SA","AN","OC"];//["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"];
    
   for (var i=0;i<data.length-1;++i){
     if (sel.indexOf(data[i].continent_code)!=-1&&data[i].total_cases>up[0]&&data[i].total_deaths>up[1]){
@@ -109,9 +109,10 @@ var z = d3.scaleOrdinal()
       .attr("dy", "0.35em")
       .text(y.tickFormat(5, "s"));
 */
+var chname=["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"];
   var legend = svg.append("g")
     .selectAll("g")
-    .data(num)
+    .data(chname)
     .enter().append("g")
       .attr("transform", function(d, i) { return "translate(-40," + (i - (num.length - 1) / 2) * 20 + ")"; });
 
