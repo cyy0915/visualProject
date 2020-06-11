@@ -99,6 +99,7 @@ function drawParallel() {
 function parallelCountrySelect(d) {
 
 }
+
 function parallelCountryCancelSelect(d) {
     
 }
