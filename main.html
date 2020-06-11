@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <script src='https://cdn.bootcss.com/d3/5.15.1/d3.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
-    <link rel="stylesheet" type="text/css" href="UI_graph2.css" />
+    <link rel="stylesheet" type="text/css" href="UI.css" />
     <script src="Dataprocess.js"></script>
     <script src="globalInteractFunction.js"></script>
     <script src="interactWidget.js"></script>
@@ -25,32 +25,73 @@
 
             mapGraph = drawMap(globalData, interactPara.category, interactPara.time);
             countrySelect('USA');
-            continentSelect('NA');
+            changeRadial();
+            drawParallel();
         })
     </script>
 </head>
 
 <body>
-<div id="basicInfo" style="width: 100%; text-align: center">
-    <h4></h4>
-</div>
-<div id="graph1" style="width: 44%; float: left; padding-bottom: 30%"></div>
-<div id="countrySelect1" style="width: 10%; height: 0; padding-bottom: 30%; float: left; overflow: auto;"></div>
-<div id="graph2" style="width: 44%; float: left"></div>
-    
-<div style="clear: both"></div>
-<div id="categorySelect" style="width: 100%; text-align: center"></div>
-<div id="timeAxis" style="width: 100%">
-    <input type="range" min="0" step="1" style="width: 90%">
-    <span>test</span>
-</div>
-<div id="graph3" style="width: 44%; float: left">
-    坐标轴选择：
-    <label><input type="radio" name="axis" id="log" onchange="changeRadial()" checked>对数坐标</label>
-    <label><input type="radio" name="axis" id="linear" onchange="changeRadial()">线性坐标</label><br>
 
-    排序方式选择：
-    <label><input type="radio" name="sort" id="num" onchange="changeRadial()" checked/>按数量</label>
+	<div id="title"><img src="pic/title.png" /></div>
+	<div id="F11"><img src="pic/F111.png" /></div>
+	<div id="basicInfo">
+		<h4></h4>
+	</div>
+	<div id="categorySelect"></div>
+	<div id="graph1"></div>
+	<div id="graph1BG"><img src="pic/board-BG.png" /></div>
+	<div id="countrySelect1"></div>
+	<div id="graph2"></div>
+	<div id="graph2BG"><img src="pic/board-BG.png" /></div>
+	<div style="clear: both"></div>
+	<div id="timeAxis">
+		<input type="range" min="0" step="1" style="width: 94%">
+		<span>test</span>
+	</div>
+	<div id="graph3"></div>
+	<div id="graph3BG"><img src="pic/board-BG.png" /></div>
+	<div id="graph3Choice">
+		<br><br>
+		-坐标轴-<br><br>
+		<label><input type="radio" name="axis" id="log" onchange="changeRadial()" checked>对数坐标</label><br>
+		<label><input type="radio" name="axis" id="linear" onchange="changeRadial()">线性坐标</label><br>
+		<br><br>
+		-排序方式-<br><br>
+		<label><input type="radio" name="sort" id="num" onchange="changeRadial()" checked />按数量</label><br>
+		<label><input type="radio" name="sort" id="area" onchange="changeRadial()">按分布</label><br>
+		<label><input type="radio" name="sort" id="first" onchange="changeRadial()">按首字母</label><br>
+	</div>
+
+	<div id="countrySelect2">
+		<br><br><br>
+		<ul></ul>
+		<br><br>
+		<div id="totalCaseFilter">
+			<input type="range" min="1" max="7" step="1">
+			<span>确诊数>1000 </span>
+		</div>
+		<br>
+		<div id="deathCaseFilter">
+			<input type="range" min="1" max="6" step="1">
+			<span>死亡数>1000</span>
+		</div>
+	</div>
+	<div id="graph4"></div>
+	<div id="graph4BG"><img src="pic/board-BG.png" /></div>
+	<div id="graph4Choice">
+		<br><br>
+		-坐标轴-<br><br>
+		<label><input type="checkbox" name="total" id="total" onchange="drawParallel()" checked>确诊数</label><br>
+		<label><input type="checkbox" name="new" id="new" onchange="drawParallel()">新增数</label><br>
+		<label><input type="checkbox" name="death" id="death" onchange="drawParallel()" checked>死亡数</label><br>
+		<label><input type="checkbox" name="total_million" id="total_million" onchange="drawParallel()">确诊数<br>（每百万）</label><br>
+		<label><input type="checkbox" name="new_million" id="new_million" onchange="drawParallel()">新增数<br>（每百万）</label><br>
+		<label><input type="checkbox" name="death_million" id="death_million" onchange="drawParallel()">死亡数<br>（每百万）</label>
+	</div>
+</body>
+</html>
+m" onchange="changeRadial()" checked/>按数量</label>
     <label><input type="radio" name="sort" id="area" onchange="changeRadial()">按分布</label>
     <label><input type="radio" name="sort" id="first" onchange="changeRadial()">按首字母</label><br>
 </div>
