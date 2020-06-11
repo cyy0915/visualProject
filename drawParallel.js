@@ -1,9 +1,9 @@
-﻿function drawParallel() {
+function drawParallel() {
     d3.select('#graph4').select('svg').remove();
 
-    var margin = { top: 200, right: 10, bottom: 10, left: 0 },
-        width = 1200 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
+    var margin = { top: 40, right: 10, bottom: 10, left: 0 },
+        width = 710 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
 
     var svg= d3.select("#graph4").append("svg")
         .attr('viewBox', `0,0,${width + margin.left + margin.right}, ${height + margin.top + margin.bottom}`)
