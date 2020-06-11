@@ -125,7 +125,7 @@ var chname=["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"
       .attr("x", 24)
       .attr("y", 9)
       .attr("dy", "0.35em")
-      .text(function(d) { return globalData.continentName[d]; });
+      .text(function(d) { return d; });
 
   svg.append("g")
     .attr("id","g1")
@@ -166,7 +166,7 @@ var chname=["北美","亚洲","欧洲","非洲","南美","大洋洲","北极洲"
     label.append("text")
         .attr("transform", "rotate(180)translate(25,0)")
       .text(function (d) {
-          return globalData.countryName[d.area];
+          return d.area;
         })
       .attr("fill", "black")
       .style("font-size", "12px");
