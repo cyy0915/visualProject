@@ -22,8 +22,10 @@ function dataProcess(data) {
                 d[i] = Number(d[i]);
             }
         }
-        if (d.total_cases>0 && d.total_cases>d.total_deaths) {
+        //总病例数大于100时才开始计算病死率
+        if (d.total_cases>100 && d.total_cases>d.total_deaths) {
             d['Case-Fatality_Ratio'] = d.total_deaths / d.total_cases;
+            d['Case-Fatality_Ratio'] = d['Case-Fatality_Ratio'];
         }
         else{
             d['Case-Fatality_Ratio'] = 0;
@@ -89,5 +91,7 @@ function dataProcess(data) {
     });
     countryPosition = tmp;
 
-    return {timeData: timeData, countryData: countryData, countryList: countryList, timeList: timeList, continentList: continentList,countryName: countryName, continentName:continentName, continentCountry:continentCountry, category:category, countryPosition: countryPosition, raw:data};
+    var categoryName = {'total_cases':'确诊数', 'new_cases':'新增数', 'total_deaths':'死亡数', 'Case-Fatality_Ratio':'病死率','total_cases_per_million':'确诊数(每百万)','new_cases_per_million':'新增数(每百万)','total_deaths_per_million':'死亡数(每百万)'};
+
+    return {timeData: timeData, countryData: countryData, countryList: countryList, timeList: timeList, continentList: continentList,countryName: countryName, continentName:continentName, continentCountry:continentCountry, category:category, countryPosition: countryPosition, categoryName:categoryName, raw:data};
 }

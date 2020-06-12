@@ -15,7 +15,7 @@ function createInteractWidget(data) {
         .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click);
 
     d3.select('#categorySelect').selectAll('button')
-        .data(data.category).join('button').text(d=>d).on('click', categorySelect);
+        .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect);
 
     var currentTime;
     $('#timeAxis input').attr('max', data.timeList.length-1)
@@ -59,15 +59,9 @@ function createInteractWidget(data) {
 
 function updateBaseInfo(data) {
     var basicInfo = $('#basicInfo');
-    basicInfo.html(`<h4>${globalData.countryName[data.iso_code]}</h4>
-    <p>确诊：${data.total_cases}; 新增：${data.new_cases}; 死亡：${data.total_deaths}</p>`);
-}
-
-function updateTLCountry(country) {
-    var tmp = country[country.length-1];
-    document.getElementById("demo").innerHTML = globalData.countryName[tmp];
-    document.getElementById("timeLine").innerHTML = "";
-    document.getElementById("selectYAxis").length = 0;
-    document.getElementById("monitorNum").length = 0;
-    drawTimeLine(globalData, tmp);
+    basicInfo.html(`- 当前选中 -<br/>
+    <p>${globalData.countryName[data.iso_code]}</p>
+    <p>确诊<br>${data.total_cases}</p>
+    <p>新增<br>${data.new_cases}</p>
+    <p>死亡<br>${data.total_deaths}</p>`);
 }

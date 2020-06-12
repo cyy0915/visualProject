@@ -1,13 +1,12 @@
-﻿function drawParallel() {
+function drawParallel() {
     d3.select('#graph4').select('svg').remove();
 
-    var margin = { top: 100, right: 10, bottom: 10, left: 0 },
-        width = 1200 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    var margin = { top: 40, right: 10, bottom: 10, left: 0 },
+        width = 710 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
 
     var svg= d3.select("#graph4").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr('viewBox', `0,0,${width + margin.left + margin.right}, ${height + margin.top + margin.bottom}`)
         .call(d3.zoom().on("zoom", function () {
             svg.attr("transform", d3.event.transform)
         }))
@@ -54,8 +53,8 @@
         if (name === "死亡数（每百万）") return "death_per_million";
     }
     for (i in dimension) {
-        name = dimension[i];
-        para = changeName(name)
+        var name = dimension[i];
+        var para = changeName(name)
         y[name] = d3.scaleLinear()
             .domain(d3.extent(dataSet, function (d) {
                 return +d[para];
@@ -78,7 +77,7 @@
         .attr("d", path)
         .attr("id", function (d) { return d.area; })
         .style("fill", "none")
-        .style("stroke", "#69b3a2")
+        .style("stroke", 'steelblue')
         .style("opacity", 1)
         .on("click", function () {
             alert(this.id)
@@ -88,9 +87,9 @@
 
     svg.selectAll("myAxis").data(dimension).enter().append("g")
         .attr("transform", function (d) { return "translate(" + x(d) + ")"; })
-        .each(function (d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
+        .each(function (d) { d3.select(this).call(d3.axisLeft().scale(y[d])).selectAll('text').attr('font-size',18); })
         .append("text")
-        .attr("font-size", 20)
+        .attr("font-size", 18)
         .style("text-anchor", "middle")
         .attr("y", -15)
         .text(function (d) { return d; })
@@ -100,6 +99,7 @@
 function parallelCountrySelect(d) {
 
 }
+
 function parallelCountryCancelSelect(d) {
     
 }

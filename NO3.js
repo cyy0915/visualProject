@@ -13,7 +13,7 @@ function changeRadial(){
     if (sel.indexOf(data[i].continent_code)!=-1&&data[i].total_cases>up[0]&&data[i].total_deaths>up[1]){
       var tmp={};
       tmp.value=data[i][category];
-      tmp.area=data[i].location;
+      tmp.area=data[i]['iso_code'];
       tmp.continent=data[i].continent_code;
       dataSet.push(tmp);       
     }
@@ -44,8 +44,8 @@ function drawRadialStackedBarChart(dataSet,num,flag){
     //先清除原图 by陈屹扬
     d3.select('#graph3').select('svg').remove();
 
-    var width=document.body.clientWidth*0.4,//parseInt(d3.select("#graph3").style("width")),
-    height=width;//parseInt(d3.select("#graph3").style("height"));
+    var width = 710,//document.body.clientWidth*0.4,//parseInt(d3.select("#graph3").style("width")),
+        height = 550;//width;//parseInt(d3.select("#graph3").style("height"));
   
     var svg = d3.select("#graph3")
         .append("svg")
@@ -82,34 +82,8 @@ if (flag){
 var z = d3.scaleOrdinal()
     .range(['#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80','#8d98b3', '#e5cf0d'])
     .domain([0,7])
-/*
-  var yAxis = svg.append("g")
-    .attr("text-anchor", "middle");
 
-  var yTick = yAxis
-    .selectAll("g")
-    .data([0,10,100,1000])
-    .enter().append("g");
-
-  yTick.append("circle")
-      .attr("fill", "none")
-      .attr("stroke", "#000")
-      .attr("r", y);
-
-  yTick.append("text")
-      .attr("y", function(d) { return -y(d); })
-      .attr("dy", "0.35em")
-      .attr("fill", "none")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 5)
-      .text(y.tickFormat(5, "s"));
-
-  yTick.append("text")
-      .attr("y", function(d) { return -y(d); })
-      .attr("dy", "0.35em")
-      .text(y.tickFormat(5, "s"));
-*/
-  var legend = svg.append("g")
+    var legend = svg.append("g")
     .selectAll("g")
     .data(num)
     .enter().append("g")
@@ -124,7 +98,7 @@ var z = d3.scaleOrdinal()
       .attr("x", 24)
       .attr("y", 9)
       .attr("dy", "0.35em")
-      .text(function(d) { return d; });
+      .text(function(d) { return globalData.continentName[d]; });
 
   svg.append("g")
     .attr("id","g1")
@@ -163,9 +137,9 @@ var z = d3.scaleOrdinal()
 
 
     label.append("text")
-      .attr("transform", "rotate(180)translate(25,0)")
+        .attr("transform", "rotate(180)translate(25,0)")
       .text(function (d) {
-          return d.area;
+          return globalData.countryName[d.area];
         })
       .attr("fill", "black")
       .style("font-size", "12px");
@@ -181,7 +155,7 @@ var z = d3.scaleOrdinal()
       .append("text")
         .text(function(d){return d.value;})
         .attr("transform",  "rotate(90)")
-        .style("font-size", "8px")
+        .style("font-size", "12px")
         .attr("alignment-baseline", "middle")
 
   
