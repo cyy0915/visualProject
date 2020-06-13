@@ -54,7 +54,7 @@ body {
 	height: 400px;
 	width: 80px;
 }
-	#categorySelect button {
+	button {
 		width: 78px;
 		display: block;
 		height: 60px;
@@ -196,4 +196,18 @@ body {
 	left: 1173px;
 	z-index: 4;
 }
+
+ul{
+	list-style:none;
+	margin:0px;
+	padding:0px;
+	cursor: pointer;
+}
+
+ul li ul{
+
+	display: none;/*将 二级 菜单隐藏起来*/
+
+}
+
 

@@ -88,31 +88,12 @@
 		<label><input type="checkbox" name="new_million" id="new_million" onchange="drawParallel()">新增数<br>（每百万）</label><br>
 		<label><input type="checkbox" name="death_million" id="death_million" onchange="drawParallel()">死亡数<br>（每百万）</label>
 	</div>
+
+<div id="predict" style="position: fixed; left: 20%; top:10%; width:60%; height: 80%; background: white; z-index: 999; display: none; text-align: center">
+	<img width="100%" height="90%"/>
+	<span>指数与线性分割点：</span><input type="range" min="0" style="width: 80%"/>
+</div>
+<div id="whole" style="pointer-events: none; width: 100%; height: 100%; position: fixed; top: 0; left: 0; display: none;z-index: 500"></div>
 </body>
 </html>
-m" onchange="changeRadial()" checked/>按数量</label>
-    <label><input type="radio" name="sort" id="area" onchange="changeRadial()">按分布</label>
-    <label><input type="radio" name="sort" id="first" onchange="changeRadial()">按首字母</label><br>
-</div>
-<div id="countrySelect2" style="width: 10%; float: left">
-    <ul></ul>
-    <div id="totalCaseFilter">
-    <input type="range" min="1" max="7" step="1">
-    <span>确诊数>1000 </span>
-    </div>
-    <div id="deathCaseFilter">
-        <input type="range" min="1" max="6" step="1">
-        <span>死亡数>1000</span>
-    </div>
-</div>
-    <div id="graph4" style="width: 44%; float: left">
-        坐标轴选择：
-        <label><input type="checkbox" name="total" id="total" onchange="drawParallel()" checked>确诊数</label>
-        <label><input type="checkbox" name="new" id="new" onchange="drawParallel()" >新增数</label>
-        <label><input type="checkbox" name="death" id="death" onchange="drawParallel()" checked>死亡数</label>
-        <label><input type="checkbox" name="total_million" id="total_million" onchange="drawParallel()">确诊数（每百万）</label>
-        <label><input type="checkbox" name="new_million" id="new_million" onchange="drawParallel()">新增数（每百万）</label>
-        <label><input type="checkbox" name="death_million" id="death_million" onchange="drawParallel()">死亡数（每百万）</label>
-    </div>
-</body>
-</html>
+
