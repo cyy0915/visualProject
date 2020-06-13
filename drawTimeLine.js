@@ -1,8 +1,9 @@
 function drawTimeLine(Data, country) {
+    d3.select('#graph2').select('svg').remove();
 
     var margin = { top: 10, right: 30, bottom: 40, left: 60 },
-        width = 700 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 540 - margin.left - margin.right,
+        height = 420 - margin.top - margin.bottom;
 
     var svg = d3.select("#graph2")
         .append("svg")
@@ -15,42 +16,12 @@ function drawTimeLine(Data, country) {
     var allGroup1 = ["缩放模式", "显示数据模式"];
 
 
-    /*d3.select("#selectYAxis")
-        .selectAll('myOptions')
-        .data(allGroup)
-        .enter()
-        .append('option')
-        .text(function (d) { return d; })
-        .attr("value", function (d) { return d; })
-
-    d3.select("#monitorNum")
-        .selectAll('myOptions')
-        .data(allGroup1)
-        .enter()
-        .append('option')
-        .text(function (d) { return d; })
-        .attr("value", function (d) { return d; })*/
-
-
-    //初始化的数据读入，默认显示USA的total_cases（确诊人数）
-
-    /* -- 数据调用方式记录 --
-     * globalData.countryData →下有数组 OWID_WRL USA ESP GBR ...
-     * globalData.countryData[] →下有数组 0 1 2 3 4 5 6 7 8 ...
-     * globalData.countryData[][] →下有数组 iso_code location date total_cases new_cases ...
-     * 数据 = globalData.countryData[国家名字缩写][第几行（0开始计数）][条目名];
-     * */
     var countryChosenData ={};
     for (var i in interactPara.countrySelect) {
         var tmp = interactPara.countrySelect[i];
         countryChosenData[tmp] = globalData.countryData[tmp];
     }
 
-    /* -- 数据调用方式记录 --
-     * countryChosenData →下有数组 0 1 2 3 4 5 6 7 8 ...
-     * countryChosenData[] →下有数组 iso_code location date total_cases new_cases ...
-     * 数据 = countryChosenData[第几行（0开始计数）][条目名];
-     * */
 
     //初始化画图需要的数据，储存进data
     for (var i in countryChosenData){
@@ -60,31 +31,8 @@ function drawTimeLine(Data, country) {
         }
     }
 
-    /*var data = []
-    for (var i in countryChosenData) {
-        var slide = {
-            date: countryChosenData[i]['date'],
-            time: d3.timeParse("%Y-%m-%d")(countryChosenData[i]['date']),
-            total_cases: countryChosenData[i]['total_cases'],
-            total_deaths: countryChosenData[i]['total_deaths'],
-            total_cases_per_million: countryChosenData[i]['total_cases_per_million'],
-            total_deaths_per_million: countryChosenData[i]['total_deaths_per_million']
-        };
-        data.push(slide);
-    }*/
-    //document.getElementById("demo").innerHTML = tmp;
-
-    /*var dataFilter = data.map(
-        function (d) {
-            return {
-                date: d.date,
-                time: d.time,
-                value: d[interactPara.category]
-            }
-        })*/
     var dataFilter = countryChosenData;
     var selectedGroup = interactPara.category;
-
 
     // 绘制y轴
     var y = d3.scaleLinear()
@@ -321,7 +269,6 @@ function drawTimeLine(Data, country) {
 
 function updateTLCountry(country) {
     var tmp = country[country.length-1];
-    d3.select('#graph2').select('svg').remove();
     //document.getElementById("demo").innerHTML = globalData.countryName[tmp];
     //document.getElementById("timeLine").innerHTML = "";
     //document.getElementById("selectYAxis").length = 0;

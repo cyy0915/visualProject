@@ -12,18 +12,10 @@ function createInteractWidget(data) {
 
     d3.select('#countrySelect1').append('ul').selectAll('li')
         .data(data.continentList).join('li').text(d=>data.continentName[d]).append('ul')
-        .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click)
-        .style('cursor', 'pointer');
+        .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click);
 
     d3.select('#categorySelect').selectAll('button')
-        .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect)
-        .style('background', function (d) {
-            if (d === interactPara.category) {
-                return '#5AB1EF';
-            } else {
-                return 'white';
-            }
-        });
+        .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect);
 
     var currentTime;
     $('#timeAxis input').attr('max', data.timeList.length-1)
@@ -36,12 +28,10 @@ function createInteractWidget(data) {
         }
     });
     $('#timeAxis input').val(data.timeList.indexOf(interactPara.time));
-    $('#timeAxis span').text(interactPara.time);
 
 
     d3.select('#countrySelect2').select('ul').selectAll('li')
-        .data(data.continentList).join('li').text(d=>data.continentName[d]).on('click', continentSelect)
-        .style('cursor', 'pointer');
+        .data(data.continentList).join('li').text(d=>data.continentName[d]).on('click', continentSelect);
     interactPara.continentSelect=["AS","AF","EU"];
     
 
@@ -69,6 +59,9 @@ function createInteractWidget(data) {
 
 function updateBaseInfo(data) {
     var basicInfo = $('#basicInfo');
-    basicInfo.html(`<h4>${globalData.countryName[data.iso_code]}</h4>
-    <p>确诊：${data.total_cases}; 新增：${data.new_cases}; 死亡：${data.total_deaths}</p>`);
+    basicInfo.html(`- 当前选中 -<br/>
+    <p>${globalData.countryName[data.iso_code]}</p>
+    <p>确诊<br>${data.total_cases}</p>
+    <p>新增<br>${data.new_cases}</p>
+    <p>死亡<br>${data.total_deaths}</p>`);
 }

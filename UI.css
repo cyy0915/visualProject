@@ -1,0 +1,199 @@
+body {
+	background-image: url(pic/BG.png);
+	/*background-repeat: repeat-x;*/
+}
+
+#title {
+	position: absolute;
+	top: 0%;
+	left:0%;
+	text-align:center
+}
+
+#F11 {
+	position: absolute;
+	width: 100%;
+	height: 51px;
+	text-align: center;
+	z-index: 999;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	_position: absolute; /* for IE6 */
+	_top: expression(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); /* for IE6 */
+	overflow: visible;
+}
+
+#basicInfo {
+	position: absolute;
+	top: 250px;
+	height: 300px;
+	left: 1050px;
+	width: 120px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 20px;
+	text-align: center
+}
+
+#timeAxis {
+	position: absolute;
+	top: 740px;
+	height: 20px;
+	left: 35px;
+	width: 1850px;
+	font-family: 'Source Han Sans CN';
+	color: #336699;
+	font-size: 18px;
+}
+
+#categorySelect {
+	position: absolute;
+	top: 190px;
+	left: 760px;
+	height: 400px;
+	width: 80px;
+}
+	#categorySelect button {
+		width: 78px;
+		display: block;
+		height: 60px;
+		border: 0;
+		outline: 0;
+		padding: 6px 10px;
+		line-height: 24px;
+		margin: 10px auto;
+		font-family: 'Source Han Serif CN';
+		color: #336699;
+		text-align: center; 
+		-webkit-transition: all 0s ease-in 0.1ms;
+		-moz-transition: all 0s ease-in 0.1ms;
+		transition: all 0s ease-in 0.1ms;
+	}
+
+
+
+#countrySelect1 {
+	position: absolute;
+	top: 170px;
+	left: 840px;
+	height: 550px;
+	width: 200px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 16px;
+	overflow: auto
+}
+
+#countrySelect2 {
+	position: absolute;
+	top: 780px;
+	left: 890px;
+	height: 580px;
+	width: 140px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 16px;
+	text-align: center;
+	overflow: auto
+}
+
+#graph3Choice {
+	position: absolute;
+	top: 820px;
+	left: 760px;
+	height: 400px;
+	width: 120px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 18px;
+	text-align: center
+}
+
+#graph4Choice {
+	position: absolute;
+	top: 820px;
+	height: 300px;
+	left: 1040px;
+	width: 120px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 18px;
+	text-align: center
+}
+
+
+#graph1 {
+	position: absolute;
+	top: 170px;
+	left: 31px;
+	height: 550px;
+	width: 710px;
+	z-index: 11;
+}
+#graph1BG {
+	position: absolute;
+	top: 164px;
+	left: 25px;
+	z-index: 1;
+}
+
+
+#graph2 {
+	position: absolute;
+	top: 170px;
+	left: 1179px;
+	height: 550px;
+	width: 710px;
+	z-index: 12;
+}
+#graph2BG {
+	position: absolute;
+	top: 164px;
+	left: 1173px;
+	z-index: 2;
+}
+
+#graph3 {
+	position: absolute;
+	top:390px;
+	left:15px;
+	/*
+		top: 780px;
+		left: 31px;
+		甜甜圈图的定位有问题，这里干脆手动根据效果来调参数了。
+	*/
+	height: 550px;
+	width: 710px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 16px;
+	text-align: center;
+	z-index: 13;
+}
+#graph3BG {
+	position: absolute;
+	top: 774px;
+	left: 25px;
+	z-index: 3;
+}
+
+#graph4 {
+	position: absolute;
+	top: 780px;
+	left: 1179px;
+	height: 550px;
+	width: 710px;
+	font-family: 'Source Han Serif CN';
+	color: #336699;
+	font-size: 16px;
+	text-align: center;
+	z-index: 14;
+}
+#graph4BG {
+	position: absolute;
+	top: 774px;
+	left: 1173px;
+	z-index: 4;
+}
+
