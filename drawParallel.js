@@ -47,7 +47,7 @@ function drawParallel() {
         if (name === "所在洲") return "continent_num";
         if (name === "确诊数") return "total";
         if (name === "新增数") return "new";
-        if (name === "死亡数") return "total";
+        if (name === "死亡数") return "death";
         if (name === "确诊数（每百万）") return "cases_per_million";
         if (name === "新增数（每百万）") return "new_per_million";
         if (name === "死亡数（每百万）") return "death_per_million";
@@ -87,7 +87,19 @@ function drawParallel() {
 
     svg.selectAll("myAxis").data(dimension).enter().append("g")
         .attr("transform", function (d) { return "translate(" + x(d) + ")"; })
-        .each(function (d) { d3.select(this).call(d3.axisLeft().scale(y[d])).selectAll('text').attr('font-size',18); })
+        .each(function (d) {
+            var tmp = d3.select(this).call(d3.axisLeft().scale(y[d]));
+            if (d==='所在洲') {
+                tmp.selectAll('line').remove();
+                tmp.selectAll('text').attr('font-size',18)
+                    .text(function (t) {
+                        return globalData.continentName[num[t]];
+                    });
+            }
+            else{
+                tmp.selectAll('text').attr('font-size',18);
+            }
+        })
         .append("text")
         .attr("font-size", 18)
         .style("text-anchor", "middle")
