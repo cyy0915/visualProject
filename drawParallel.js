@@ -1,4 +1,4 @@
-function drawParallel() {
+﻿function drawParallel() {
     d3.select('#graph4').select('svg').remove();
 
     var margin = { top: 40, right: 10, bottom: 10, left: 0 },
@@ -47,7 +47,7 @@ function drawParallel() {
         if (name === "所在洲") return "continent_num";
         if (name === "确诊数") return "total";
         if (name === "新增数") return "new";
-        if (name === "死亡数") return "total";
+        if (name === "死亡数") return "death";
         if (name === "确诊数（每百万）") return "cases_per_million";
         if (name === "新增数（每百万）") return "new_per_million";
         if (name === "死亡数（每百万）") return "death_per_million";
