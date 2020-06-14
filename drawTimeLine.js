@@ -184,20 +184,6 @@ function drawTimeLine(Data, country) {
 
     //更改y轴&刷新
     function update(selected) {
-
-        if (selected == "死亡人数") {
-            selectedGroup = "total_deaths";
-        }
-        if (selected == "确诊人数(每百万人)") {
-            selectedGroup = "total_cases_per_million";
-        }
-        if (selected == "死亡人数(每百万人)") {
-            selectedGroup = "total_deaths_per_million";
-        }
-        if (selected == "确诊人数") {
-            selectedGroup = "total_cases";
-        }
-
         x.domain(d3.extent(dataFilter[interactPara.countrySelect[0]], function (d) { return d.time; }))
         svg.selectAll(".myXaxis")
             .transition()
@@ -252,7 +238,7 @@ function drawTimeLine(Data, country) {
             .attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
         line
-            .select('.line')
+            .selectAll('.line')
             .transition()
             .duration(1000)
             .attr("d", d3.line()

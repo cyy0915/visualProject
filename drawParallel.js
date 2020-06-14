@@ -87,7 +87,19 @@
 
     svg.selectAll("myAxis").data(dimension).enter().append("g")
         .attr("transform", function (d) { return "translate(" + x(d) + ")"; })
-        .each(function (d) { d3.select(this).call(d3.axisLeft().scale(y[d])).selectAll('text').attr('font-size',18); })
+        .each(function (d) {
+            var tmp = d3.select(this).call(d3.axisLeft().scale(y[d]));
+            if (d==='所在洲') {
+                tmp.selectAll('line').remove();
+                tmp.selectAll('text').attr('font-size',18)
+                    .text(function (t) {
+                        return globalData.continentName[num[t]];
+                    });
+            }
+            else{
+                tmp.selectAll('text').attr('font-size',18);
+            }
+        })
         .append("text")
         .attr("font-size", 18)
         .style("text-anchor", "middle")

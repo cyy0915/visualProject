@@ -16,7 +16,7 @@ def linear_func(x, a, b):
 
 
 def new_csv():
-    de = pd.read_csv("new.csv")
+    de = pd.read_csv("owid-covid-data.csv")
     return de
 
 
@@ -24,8 +24,8 @@ def plot_model(df, country, min_infections,
                start_exponential_phase, end_exponential_phase,
                start_linear_phase, end_linear_phase):
     # filter just one country
-    df = df[df["location"] == country]
-    df = df.drop(columns=["location"])
+    df = df[df["iso_code"] == country]
+    df = df.drop(columns=["iso_code"])
     date_list = df["date"].tolist()
     cases_list = df["total_cases"].tolist()
     d = {date_list[0]: cases_list[0]}
@@ -127,8 +127,8 @@ def plot_model(df, country, min_infections,
     ax.set_xlabel("Date")
     ax.set_ylabel("Number of Infections")
     ax.legend()
-    ax.grid()
-    ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
+    
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=10))
     fig.suptitle(f"{date.today()} - Number of Infected persons in {country}")
     fig.autofmt_xdate()
     fig.savefig(f"plots/model_{country}.png", bbox_inches='tight')
