@@ -1,4 +1,4 @@
-function drawParallel() {
+﻿function drawParallel() {
     d3.select('#graph4').select('svg').remove();
 
     var margin = { top: 40, right: 10, bottom: 10, left: 0 },
