@@ -10,18 +10,20 @@ function createInteractWidget(data) {
 
     interactPara = {time:data.timeList[data.timeList.length-1], category: 'total_cases', countrySelect: [], recentSelect:'', continentSelect: ["AS","AF","EU"], countryFilter: [1000,1000]};
 
-    d3.select('#countrySelect1').append('ul').selectAll('li')
-        .data(data.continentList).join('li').text(d=>data.continentName[d])
-        .on('click', function (d) {
-            if (d3.select(this).select('ul').style('display')==='none') {
-                d3.select(this).select('ul').style('display', 'block')
-            }
-            else{
-                d3.select(this).select('ul').style('display', 'none')
-            }
-        })
-        .append('ul')
+    var ctmp = d3.select('#countrySelect1').append('ul').selectAll('li')
+        .data(data.continentList).join('li');
+    ctmp.append('span').style('font-size', '22px')
+        .text(d=>data.continentName[d]).on('click', function (d) {
+        if (d3.select(this.parentNode).select('ul').style('display')==='none') {
+            d3.select(this.parentNode).select('ul').style('display', 'block')
+        }
+        else{
+            d3.select(this.parentNode).select('ul').style('display', 'none')
+        }
+    });
+    ctmp.append('ul')
         .selectAll('li').data(d=>data.continentCountry[d]).join('li').text(d=>data.countryName[d]).on('click', click);
+
 
     d3.select('#categorySelect').selectAll('button')
         .data(data.category).join('button').text(d=>globalData.categoryName[d]).on('click', categorySelect);

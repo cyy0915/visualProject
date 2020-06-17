@@ -153,11 +153,19 @@ var z = d3.scaleOrdinal()
         .attr("text-anchor", "middle")//function(d,i) { return (x(i) + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
         .attr("transform", function(d) { return "rotate(" + (x(d.area)* 180 / Math.PI - 90) + ")"+"translate(" + (y(d.value)+5) + ",0)"; })
       .append("text")
-        .text(function(d){return d.value;})
+        .text(function(d){return fixLongData(d.value);})
         .attr("transform",  "rotate(90)")
         .style("font-size", "12px")
         .attr("alignment-baseline", "middle")
 
   
      
+}
+
+function fixLongData(d){
+    d=String(d);
+    if (d.indexOf('.')<d.length-4 && d.indexOf('.')!==-1){
+        d=d.slice(0, d.indexOf('.')+4);
+    }
+    return Number(d);
 }
